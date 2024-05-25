@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Variables Sorter</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@latest/normalize.css">
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.0.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/gh/SengerMF/PMI/sortebleMulti.js"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.wrapper{
+  padding: 25px;
+  max-width: 100%;
+  width: 100%;
+  border-radius: 3px;
+}
+
+.wrapper .item{
+ 
+  height: 28px;
+  color: #fff;
+  display: flex;
+  margin-bottom: 2px;
+  border-radius: 3px;
+  align-items: center;
+  justify-content: space-between;
+  background: #535353;
+}
+
+.wrapper .item:last-child{
+  margin-bottom: 0px;
+}
+.wrapper .item .text{
+  font-size: 13px;
+  font-weight: 250;
+  padding-left: 10px;
+}
+
+body {
+  background-color: #323232;
+  color: #cbcbcb;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+}
+
+h1 {
+  background: #2c6892;
+  color: #fff;
+  font-size: 0.875em;
+  font-weight: 400;
+  line-height: 1.2em;
+  margin: 0;
+  padding: 1rem;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+button {
+  appearance: none;
+  background: linear-gradient(#4d4d4d, #414141);
+  border: 1px solid #595959;
+  border-radius: 0.25rem;
+  color: #cbcbcb;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 0.8rem;
+  margin: 1em auto;
+  outline: none;
+  padding: 0.75em 0.5em;
+  transition: 0.2s;
+  margin-bottom: 10px;
+  margin-top: -10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.tinted {
+  background-color: #313131 !important;
+}
+
+.selected {
+  background-color: #838282 !important;
+  z-index: 1 !important;
+}
+
+#myBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 60px;
+  z-index: 9999;
+  border: none;
+  outline: none;
+  color: white;
+  cursor: pointer;
+  padding: 13px;
+  border-radius: 10px;
+  font-size: 14pt;
+}
+
+#myBtnApply {
+  position: fixed;
+  bottom: 20px;
+  right: 10px;
+  z-index: 9998;
+  border: none;
+  outline: none;
+  color: white;
+  cursor: pointer;
+  padding: 13px;
+  border-radius: 10px;
+  font-size: 14pt;
+}
+
+#myBtn:hover {
+  color: #3783ba
+}
+
+#myBtnApply:hover {
+  color: #3783ba
+}
+#myBtnDiv:hover {
+  color: #3783ba
+}
+
+
+
+.tag{
+    font-size: 12pt;
+    width: 40px;
+    height: 28px;
+    border-radius: 0px 3px 3px 0px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.item #string {
+    background-color: #1a70bc; /* Azul */
+}
+.item #longtext {
+    background-color: #1a70bc; /* Azul */
+    
+}
+.item #formattedtext {
+    background-color: #b81d1b; /* Vermelho */
+}
+.item #calculated {
+    background-color: #681b7d; /* Roxo */
+}
+.item #image {
+    background-color: #c46d03; /* Laranja */
+    
+}
+.item #number {
+    background-color: #2b7e30; /* Verde */
+}
+.item #checkbox {
+    background-color: #038c9e; /* Azul claro */
+}
+.item #date {
+    background-color: #452585; /* Roxo escuro */
+}
+.item #list {
+    background-color: #253490; /* Azul índigo */
+}
+.item #table {
+    background-color: #00897B; /* Verde água */
+}
+.item #color {
+    background-color: #a11548; /* Rosa */
+}
+.item #paragraphstyle {
+    background-color: #5f4036; /* Marrom */
+}
+.item #font {
+    background-color: #1e73bd; /* Azul */
+}
+.item #coordinate {
+    background-color: #8e9621; /* Verde limão */
+}
+.item #buttonbar {
+    background-color: #5a4ff4; /* Azul claro */
+}
+.item #characterstyle {
+    background-color: #751e8d; /* Roxo */
+}
+
+.item #divider{
+    display: none;
+  }
+.wrapper #divider{
+    background: #3f6fff;
+    align-items: center;
+    justify-content: center;
+  }
+
+  </style>
+
+</head>
+
+<body>
+  <h1><i class="fas fa-sort"></i> | Variables Sorter</h1>
+
+  <button onclick="sortSelectedItems()" title="sorter the selected vars" id="myBtnApply">
+    <i class="fas fa-sort-alpha-down"></i>
+  </button>
+  <button onclick="applyChanges()" title="Apply" id="myBtn">
+    <i class="fas fa-check"></i>
+  </button>
+
+  <div class="pagebuilder clearfix">
+    <div class="wrapper" id='page'>
+      <div class="item string">
+        <span class="text" title="string" id="item1">Version 2</span>
+        <div class="tag" id="string">
+          <i class="far fa-check-square"></i>
+        </div>
+      </div>
+      <div class="item string">
+        <span class="text" title="string" id="item2">Version 3</span>
+        <div class="tag" id="string">
+          <i class="far fa-check-square"></i>
+        </div>
+      </div>
+      <div class="item number">
+        <span class="text" title="number" id="item3">Version A</span>
+        <div class="tag" id="number">
+          <i class="far fa-check-square"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const dragArea = document.querySelector(".wrapper");
+    new Sortable(dragArea, {
+      multiDrag: true,
+      selectedClass: 'selected',
+      fallbackTolerance: 3,
+      animation: 150
+    });
+
+    document.addEventListener('click', function(event) {
+      if (!event.target.closest('.item')) {
+        document.querySelectorAll('.item.selected').forEach(function(item) {
+          item.classList.remove('selected');
+        });
+      }
+    });
+
+    function sortSelectedItems() {
+      const wrapper = document.querySelector('.wrapper');
+      const items = Array.from(wrapper.children);
+      const selectedItems = items.filter(item => item.classList.contains('selected'));
+
+      if (selectedItems.length === 0) return;
+
+      // Encontra o índice do primeiro item selecionado
+      const startIndex = items.findIndex(item => item.classList.contains('selected'));
+      const endIndex = startIndex + selectedItems.length - 1;
+
+      // Remove os itens selecionados do DOM
+      selectedItems.forEach(item => wrapper.removeChild(item));
+
+      // Ordena os itens selecionados
+      selectedItems.sort((a, b) => {
+        const textA = a.querySelector('.text').textContent;
+        const textB = b.querySelector('.text').textContent;
+        return textA.localeCompare(textB);
+      });
+
+      // Insere os itens ordenados de volta na posição original
+      selectedItems.forEach((item, index) => {
+        wrapper.insertBefore(item, wrapper.children[startIndex + index]);
+      });
+    }
+
+    function applyChanges() {
+      const items = document.querySelectorAll('.item');
+      const jsonResult = {};
+
+      items.forEach((item, index) => {
+        const span = item.querySelector('.text');
+        const id = span.id + '-' + index; // Garante IDs únicos
+        const name = span.textContent;
+        const dataType = span.title;
+
+        jsonResult[id] = {
+          index: index,
+          name: name,
+          dataType: dataType
+        };
+      });
+
+      console.log(JSON.stringify(jsonResult, null, 2));
+
+      applyEditorChanges(jsonResult);
+    }
+
+    function applyEditorChanges(jsonResult) {
+      Object.keys(jsonResult).forEach(key => {
+        const { index } = jsonResult[key];
+        editorObject.SetProperty(`document.variables[${key}]`, 'index', index);
+      });
+    }
+
+    /*Carrega os dados no modal*/
+
+    setTimeout(()=>{
+      let json = {};
+let variablesLength = editorObject.GetObject('document.variables.length');
+
+for (let i = 0; i < variablesLength; i++) {
+	let id = editorObject.GetObject(`document.variables[${i}].id`);
+	let name = editorObject.GetObject(`document.variables[${i}].name`);
+	let dataType = editorObject.GetObject(`document.variables[${i}].dataType`);
+
+	json[id] = {
+		index: i,
+		name: name,
+		dataType: dataType
+	};
+}
+
+let jsonString = JSON.stringify(json, null, 2);
+
+let dataTypeIcons = {
+  "string" :"fa-solid fa-i-cursor",
+  "longtext" :"fa-solid fa-i-cursor",
+  "formattedtext" :"fa-solid fa-italic",
+  "calculated" :"fa-solid fa-calculator",
+  "image" :"fa-regular fa-image",
+  "number" :"fa-solid fa-hashtag",
+  "checkbox" :"fa-regular fa-square-check",
+  "date" :"fa-regular fa-calendar",
+  "list" :"fa-solid fa-list",
+  "table" :"fa-solid fa-table",
+  "color" :"fa-solid fa-fill-drip",
+  "paragraphstyle" :"fa-solid fa-paragraph",
+  "divider" :"nothing",
+  "font" :"fa-solid fa-font",
+  "coordinate" :"fa-solid fa-arrows-to-circle",
+  "buttonbar" :"fa-regular fa-hand-pointer",
+  "characterstyle" :"fa-solid fa-underline"
+}
+
+function variablesListInserting(id, name, dataType) {
+  
+  // Obter o ícone correspondente ao dataType*/
+  document.getElementById('page').innerHTML += `<div class="item" id="${dataType}">
+    <span class="text" title="${dataType}" id="${id}" >${name}</span>
+    <div class="tag" id="${dataType}">
+  <i id="icon" class="${dataTypeIcons[dataType]}"></i>
+      </div>
+  </div>`
+}
+
+for (var id in jsonString) {
+  if (jsonString.hasOwnProperty(id)) {
+    var variable = jsonString[id];
+    variablesListInserting(id, variable.name, variable.dataType);
+  }
+}
+    }, 1500)
+
+  </script>
+</body>
+
+</html>
